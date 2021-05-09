@@ -13,7 +13,9 @@ public class DataBaseWithUI {
     public DataBaseWithUI(Context context){
         this.context = context;
     }
+
     public static ArrayList<Event> ListOfEvents(String day , String month , String year){
+
 
         DataBaseHelper helper = new DataBaseHelper(context);
         List<Note> notes = helper.getNotes(day+"-"+month+"-"+year);
@@ -27,6 +29,7 @@ public class DataBaseWithUI {
         }
         return events;
     }
+
     public  ArrayList<String> ListOfDatesHasEvents(){
         ArrayList<String> dates = new ArrayList<>();
         DataBaseHelper helper = new DataBaseHelper(context);

@@ -14,7 +14,7 @@ public class OpeningPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.openingpage);
     }
-
+    
         public void gotoAddNotebook(View view) {
             Intent intent = new Intent (this, NotebookHome.class);
             startActivity(intent);
@@ -22,6 +22,13 @@ public class OpeningPage extends AppCompatActivity {
 
     public void gotoCalendarActivity(View view) {
         Intent intent = new Intent (this, CalendarActivity.class);
+
         startActivity(intent);
+    }
+
+    public void gotoSettings(View view) {
+        Intent intent = new Intent(this, Settings.class);
+        startActivity(intent);
+
     }
 }

@@ -9,21 +9,21 @@
         android:id="@+id/tasksText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:text="Create NoteBook"
-        android:textColor="@android:color/black"
         android:layout_marginStart="16dp"
-        android:layout_marginBottom='16dp'
         android:layout_marginTop="16dp"
-        android:textSize="32sp" />
+        android:layout_marginBottom='16dp'
+        android:text="My Plans"
+        android:textColor="@android:color/black"
+        android:textSize="32sp"
+        android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/taskRecycled"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tasksText"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:nestedScrollingEnabled="true"/>
+        layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:nestedScrollingEnabled="true" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id='@+id/floatingButton'

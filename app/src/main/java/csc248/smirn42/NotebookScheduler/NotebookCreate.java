@@ -112,7 +112,9 @@ public class NotebookCreate extends AppCompatActivity {
     }
 
     public void newNotebook() {
-        SQLiteDatabase database = dbhelper.getReadableDatabase();
+
+// Commented out, database should not be accessed directly - DF
+//        SQLiteDatabase database = dbhelper.getReadableDatabase();
 
         EditText notebookNameInput = findViewById(R.id.notebook_name);
 
@@ -121,16 +123,29 @@ public class NotebookCreate extends AppCompatActivity {
         if(notebookName.matches("")) {
             Toast.makeText(this, "Notebook name can't be empty", Toast.LENGTH_SHORT).show();
         } else {
-            ContentValues contentValues = new ContentValues();
-            contentValues.put(dbhelper.COLUMN_NOTEBOOK_NAME, notebookName);
-            contentValues.put(dbhelper.COLUMN_IS_LIST, isList());
-            contentValues.put(dbhelper.COLUMN_NOTEBOOK_COLOR, color);
 
-            database.insert(dbhelper.NOTEBOOK_TABLE, null, contentValues);
-            dbhelper.close();
+// Added proper addNotebook method - DF
+            Notebook notebook = new Notebook(-1, notebookName, color, "", isList());
+            boolean success = dbhelper.addNotebook(notebook);
+            if(!success){
+                Toast.makeText(this, "Notebook already exists!", Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(this, "Notebook " + notebookName + " created", Toast.LENGTH_SHORT).show();
+                notebookNameInput.getText().clear();
+            }
 
-            Toast.makeText(this, "Notebook " + notebookName + " created", Toast.LENGTH_SHORT).show();
-            notebookNameInput.getText().clear();
+//Commented out, database should not be accessed directly
+//            ContentValues contentValues = new ContentValues();
+//            contentValues.put(dbhelper.COLUMN_NOTEBOOK_NAME, notebookName);
+//            contentValues.put(dbhelper.COLUMN_IS_LIST, isList());
+//            contentValues.put(dbhelper.COLUMN_NOTEBOOK_COLOR, color);
+//
+//            database.insert(dbhelper.NOTEBOOK_TABLE, null, contentValues);
+//            dbhelper.close();
+
+//            Toast.makeText(this, "Notebook " + notebookName + " created", Toast.LENGTH_SHORT).show();
+//            notebookNameInput.getText().clear();
+
         }
 
         Note note = new Note(-1,

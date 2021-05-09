@@ -54,6 +54,7 @@ public class NotebookMenuRecyclerAdapter extends RecyclerView.Adapter<NotebookMe
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), notes_example.class);
+                intent.putExtra("notebookName", thumbnailList.get(position).getNotebookName());
                 view.getContext().startActivity(intent);
                 //pass information to notes_example here
             }

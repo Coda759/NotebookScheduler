@@ -32,6 +32,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         super(context, "notebook.db", null, 1);
     }
 
+
     @Override
     public void onCreate(SQLiteDatabase db) {
 
@@ -65,6 +66,15 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     public boolean addNotebook(Notebook notebook) {
 
+        if (notebook.getNotebookName().equals(null) || notebook.getNotebookName().equals("")){
+            return false;
+        }
+
+        if (checkDuplicateNotebookName(notebook.getNotebookName())){
+
+            return false;
+        }
+
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_NOTEBOOK_NAME, notebook.getNotebookName());
@@ -72,9 +82,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_PICTURE_LOCATION, notebook.getPictureLocation());
         cv.put(COLUMN_IS_LIST, notebook.isList());
         long insert = db.insert(NOTEBOOK_TABLE, null, cv);
+
         if (insert == -1) {
+            db.close();
             return false;
         } else {
+            db.close();
             return true;
         }
     }
@@ -125,7 +138,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
                 Notebook notebook = new Notebook(notebookId, notebookName, notebookColor, pictureLocation, isList);
                 if(notebook.getNotebookName().equals(bookName)){
-                returnList.add(notebook);}
+                    returnList.add(notebook);}
 
             } while (cursor.moveToNext());
         } else {
@@ -146,8 +159,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(queryString, null);
 
         if (cursor.moveToFirst()){
+            cursor.close();
+            db.close();
             return true;
         }else{
+            cursor.close();
+            db.close();
             return false;
         }
 
@@ -156,6 +173,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     //NOTES***************************************************************
 
     public boolean addNote(Note note) {
+
+        if(note.getBookId() == -1){
+            return false;
+        }
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -199,7 +220,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return returnList;
     }
 
-    public List<Note> getNotes(String dueDate) {
+    public  List<Note> getNotes(String dueDate) {
         List<Note> returnList = new ArrayList<>();
         String queryString = "SELECT * FROM " + NOTE_TABLE;
 
@@ -216,8 +237,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 boolean isCompleted = cursor.getInt(4) == 1 ? true : false;
 
                 Note note = new Note(noteId, bookId, noteText, dueDate, isCompleted);
-                if (note.getDueDate().equals(dueDate)){
-                returnList.add(note);}
+                if (date.equals(dueDate)){
+                    returnList.add(note);}
 
             } while (cursor.moveToNext());
         } else {
@@ -264,8 +285,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(queryString, null);
 
         if (cursor.moveToFirst()){
+            cursor.close();
+            db.close();
             return true;
         }else{
+            cursor.close();
+            db.close();
             return false;
         }
 
@@ -277,6 +302,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_IS_COMPLETED, isCompleted);
         db.update(NOTE_TABLE, cv, "NOTE_ID = ?", new String[]{String.valueOf(noteId)});
+        db.close();
         return true;
     }
 
@@ -288,12 +314,38 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(queryString, null);
 
         if (cursor.moveToFirst()){
+            cursor.close();
+            db.close();
             return true;
         }else{
+            cursor.close();
+            db.close();
             return false;
         }
 
     }
+
+    public boolean editNoteText(Note note, String editedText){
+        int noteId = note.getNoteId();
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_NOTE_TEXT, editedText);
+        db.update(NOTE_TABLE, cv, "NOTE_ID = ?", new String[]{String.valueOf(noteId)});
+        db.close();
+        return true;
+    }
+
+    public boolean editNoteDate(Note note, String editedDate){
+        int noteId = note.getNoteId();
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_DUE_DATE, editedDate);
+        db.update(NOTE_TABLE, cv, "NOTE_ID = ?", new String[]{String.valueOf(noteId)});
+        db.close();
+        return true;
+    }
+
+
 
     public int notebookNameToNotebookId(String notebookName) {
         List<Notebook> searchList = getNotebooks();
@@ -308,20 +360,17 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return notebookId;
     }
 
-    public boolean editNoteText(Note note, String editedText){
-        int noteId = note.getNoteId();
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues cv = new ContentValues();
-        cv.put(COLUMN_NOTE_TEXT, editedText);
-        db.update(NOTE_TABLE, cv, "NOTE_ID = ?", new String[]{String.valueOf(noteId)});
-        return true;
+
+    private boolean checkDuplicateNotebookName(String notebookName) {
+
+        List<Notebook> searchList = getNotebooks();
+        for (Notebook notebook : searchList) {
+            if (notebook.getNotebookName().equals(notebookName)) {
+                return true;
+            }
+        }
+        return false;
     }
-    public boolean editNoteDate(Note note, String editedDate){
-        int noteId = note.getNoteId();
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues cv = new ContentValues();
-        cv.put(COLUMN_DUE_DATE, editedDate);
-        db.update(NOTE_TABLE, cv, "NOTE_ID = ?", new String[]{String.valueOf(noteId)});
-        return true;
-    }
+
 }
+

@@ -22,7 +22,7 @@
             android:layout_weight="1"
             android:background="#03A9F4"
             android:clickable="false"
-            android:editable="true"
+            android:editable="false"
             android:gravity="center"
             android:textColor="#000000"
             android:textSize="36sp"

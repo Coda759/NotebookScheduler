@@ -52,7 +52,7 @@ public class CalendarActivity extends AppCompatActivity {
                 SimpleDateFormat df = new SimpleDateFormat("dd-MMMM-yyyy");
                 String formattedDate = df.format(dateClicked);
                 intent.putExtra("date", formattedDate);
-                intent.putExtra("dateIndateFormate", dateClicked);
+                intent.putExtra("dateIndateFormat", dateClicked);
                 startActivity(intent);
             }
 
@@ -86,10 +86,6 @@ public class CalendarActivity extends AppCompatActivity {
             }
         });
 
-
-        //Mark days has events
-        MarkTheDaysHasEvents();
-
         linkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,7 +95,7 @@ public class CalendarActivity extends AppCompatActivity {
     }
 
     public void goToNotebook() {
-        Intent intent = new Intent(this, Notebook.class);
+        Intent intent = new Intent(this, NotebookHome.class);
         startActivity(intent);
     }
 
@@ -145,43 +141,6 @@ public class CalendarActivity extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-    }
-
-    private void MarkTheDaysHasEvents() {
-        DataBaseWithUI dataBaseWithUI = new DataBaseWithUI(getApplicationContext());
-        ArrayList<String> dates = dataBaseWithUI.ListOfDatesHasEvents();
-        //   DummyData d = new DummyData();
-        //    ArrayList<String> dates = d.arrayList;
-        if (dates != null) {
-            for (int i = 0; i < dates.size(); i++) {
-                String date = dates.get(i);
-                Calendar calendar = Calendar.getInstance();
-                String[] str = date.split("-");
-                calendar.set(Calendar.YEAR, Integer.parseInt(str[2]));
-                calendar.set(Calendar.MONTH, mapMonth(str[1]) - 1);
-                calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(str[0]));
-                long milliTime = calendar.getTimeInMillis();
-                Event event = new Event(Color.RED, milliTime, "dd");
-                calendarView.addEvent(event);
-            }
-        }
-    }
-
-    private int mapMonth(String month) {
-        HashMap<String, Integer> daysOfMonth = new HashMap<>();
-        daysOfMonth.put("January", 1);
-        daysOfMonth.put("February", 2);
-        daysOfMonth.put("March", 3);
-        daysOfMonth.put("April", 4);
-        daysOfMonth.put("May", 5);
-        daysOfMonth.put("June", 6);
-        daysOfMonth.put("July", 7);
-        daysOfMonth.put("August", 8);
-        daysOfMonth.put("September", 9);
-        daysOfMonth.put("October", 10);
-        daysOfMonth.put("November", 11);
-        daysOfMonth.put("December", 12);
-        return daysOfMonth.get(month);
     }
 
     private void getCurrentDate() {
