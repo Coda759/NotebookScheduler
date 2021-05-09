@@ -53,10 +53,10 @@ public class NotebookMenuRecyclerAdapter extends RecyclerView.Adapter<NotebookMe
         holder.notebookBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), notes_example.class);
+                Intent intent = new Intent(view.getContext(), NotesExampleActivity.class);
                 intent.putExtra("notebookName", thumbnailList.get(position).getNotebookName());
                 view.getContext().startActivity(intent);
-                //pass information to notes_example here
+                //pass information to NotesExampleActivity here
             }
         });
         //set pic here maybe

@@ -4,38 +4,74 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class eventsAdapter extends ArrayAdapter<Event> {
+public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder> {
 
-    public eventsAdapter(Context context, ArrayList<Event> events) {
-        super(context, R.layout.event_element, events );
+    private LayoutInflater mInflater;
+    private ArrayList<Event> events;
+    private CheckboxClickListener listener;
 
+    public EventsAdapter(Context context, ArrayList<Event> events, CheckboxClickListener listener) {
+        this.mInflater = LayoutInflater.from(context);
+        this.events = events;
+        this.listener = listener;
     }
+
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        Event event = getItem(position);
-        if(convertView == null){
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.event_element , parent, false);
-        }
-        TextView event_title = (TextView) convertView.findViewById(R.id.element_title);
-        CheckBox checkBox = (CheckBox) convertView.findViewById(R.id.checkbox_);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = mInflater.inflate(R.layout.event_element, parent, false);
+        return new ViewHolder(view);
+    }
 
-        boolean checked = event.isChecked();
+    @Override
+    public void onBindViewHolder(@NonNull EventsAdapter.ViewHolder holder, int position) {
+        Event event = events.get(position);
+
+        //boolean checked = event.isChecked();
         String titleOfElement = event.getEventName();
-        event_title.setText(titleOfElement);
-        checkBox.setChecked(checked);
+        holder.eventTitle.setText(titleOfElement);
+        holder.checkBox.setChecked(event.isChecked());
 
-        convertView.setBackgroundColor(event.getEventColor());
-        return convertView;
+        holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                listener.onClick(position, isChecked);
+            }
+        });
+
+        holder.itemView.setBackgroundColor(holder.itemView.getContext().getResources().getColor(event.getEventColor()));
+    }
+
+    @Override
+    public int getItemCount() {
+        return events.size();
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        TextView eventTitle;
+        CheckBox checkBox;
+
+        ViewHolder(View itemView) {
+            super(itemView);
+            eventTitle = itemView.findViewById(R.id.element_title);
+            checkBox = itemView.findViewById(R.id.checkbox_);
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            //if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
+        }
     }
 }
 

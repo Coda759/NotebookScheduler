@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/banner_notebook"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="vertical"
-        android:id="@+id/banner_notebook"
-        app:layout_constraintTop_toTopOf="parent"
-        android:gravity="center">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Create Notebook"
-            android:textSize="30sp"
-            android:textAllCaps="false"
-            android:fontFamily="sans-serif-condensed-medium"
-            android:textStyle="bold"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:text="Create Notebook"
+            android:textAllCaps="false"
+            android:textSize="30sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -29,15 +29,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:orientation="vertical"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/banner_notebook">
 
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@color/black"/>
+            android:background="@color/black" />
 
         <EditText
             android:id="@+id/notebook_name"
@@ -50,21 +50,21 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:background="@drawable/layout_border"
             android:gravity="center"
+            android:orientation="vertical"
             android:paddingTop="10dp"
-            android:paddingBottom="20dp"
-            android:background="@drawable/layout_border">
+            android:paddingBottom="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Notebook Type:"
-                android:textSize="30sp"
-                android:textAllCaps="false"
-                android:fontFamily="sans-serif-condensed-medium"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:text="Notebook Type:"
+                android:textAllCaps="false"
+                android:textSize="30sp" />
 
             <RadioGroup
                 android:id="@+id/radio_group"
@@ -76,17 +76,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
+                    android:onClick="checkInput"
                     android:text="Notes"
-                    android:textSize="20sp"
-                    android:onClick="checkInput"/>
+                    android:textSize="20sp" />
 
                 <RadioButton
                     android:id="@+id/checklist_selection"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="checkInput"
                     android:text="Checklist"
-                    android:textSize="20sp"
-                    android:onClick="checkInput"/>
+                    android:textSize="20sp" />
 
             </RadioGroup>
 
@@ -95,180 +95,192 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Design"
-            android:textSize="30sp"
-            android:textAllCaps="false"
-            android:fontFamily="sans-serif-condensed-medium"
-            android:textStyle="bold"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:text="Design"
+            android:textAllCaps="false"
+            android:textSize="30sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
             <RadioGroup
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                    <RadioButton
-                        android:id="@+id/radio_blue"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginRight="5dp"
-                        android:onClick="selectedColor"
-                        android:buttonTint="@color/blue"
-                        android:checked="true"/>
+                <RadioButton
+                    android:id="@+id/radio_blue"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginRight="5dp"
+                    android:buttonTint="@color/blue"
+                    android:checked="true"
+                    android:onClick="selectedColor" />
 
-                    <RadioButton
-                        android:id="@+id/radio_green"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginRight="5dp"
-                        android:onClick="selectedColor"
-                        android:buttonTint="@color/green"
-                        android:padding="10dp"
-                        android:checked="false"/>
+                <RadioButton
+                    android:id="@+id/radio_green"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginRight="5dp"
+                    android:buttonTint="@color/green"
+                    android:checked="false"
+                    android:onClick="selectedColor"
+                    android:padding="10dp" />
 
-                    <RadioButton
-                        android:id="@+id/radio_yellow"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginRight="5dp"
-                        android:onClick="selectedColor"
-                        android:buttonTint="@color/yellow"
-                        android:padding="10dp"
-                        android:checked="false"/>
+                <RadioButton
+                    android:id="@+id/radio_yellow"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginRight="5dp"
+                    android:buttonTint="@color/yellow"
+                    android:checked="false"
+                    android:onClick="selectedColor"
+                    android:padding="10dp" />
 
-                    <RadioButton
-                        android:id="@+id/radio_hot_pink"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginRight="5dp"
-                        android:onClick="selectedColor"
-                        android:buttonTint="@color/hot_pink"
-                        android:padding="10dp"
-                        android:checked="false"/>
+                <RadioButton
+                    android:id="@+id/radio_hot_pink"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginRight="5dp"
+                    android:buttonTint="@color/hot_pink"
+                    android:checked="false"
+                    android:onClick="selectedColor"
+                    android:padding="10dp" />
 
-                    <RadioButton
-                        android:id="@+id/radio_orange"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginRight="5dp"
-                        android:onClick="selectedColor"
-                        android:buttonTint="@color/orange"
-                        android:padding="10dp"
-                        android:checked="false"/>
+                <RadioButton
+                    android:id="@+id/radio_orange"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginRight="5dp"
+                    android:buttonTint="@color/orange"
+                    android:checked="false"
+                    android:onClick="selectedColor"
+                    android:padding="10dp" />
 
-                    <RadioButton
-                        android:id="@+id/radio_cayan"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:onClick="selectedColor"
-                        android:buttonTint="@color/cayan"
-                        android:padding="10dp"
-                        android:checked="false"/>
+                <RadioButton
+                    android:id="@+id/radio_cayan"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:buttonTint="@color/cayan"
+                    android:checked="false"
+                    android:onClick="selectedColor"
+                    android:padding="10dp" />
 
-                    <RadioButton
-                        android:id="@+id/radio_red"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginRight="5dp"
-                        android:onClick="selectedColor"
-                        android:buttonTint="@color/red"
-                        android:padding="10dp"
-                        android:checked="false"/>
+                <RadioButton
+                    android:id="@+id/radio_red"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginRight="5dp"
+                    android:buttonTint="@color/red"
+                    android:checked="false"
+                    android:onClick="selectedColor"
+                    android:padding="10dp" />
 
-<!--                    <RadioButton-->
-<!--                        android:id="@+id/radio_purple"-->
-<!--                        android:layout_width="50dp"-->
-<!--                        android:layout_height="50dp"-->
-<!--                        android:layout_marginRight="5dp"-->
-<!--                        android:onClick="selectedColor"-->
-<!--                        android:buttonTint="@color/purple"-->
-<!--                        android:padding="10dp"-->
-<!--                        android:checked="false"/>-->
-<!--    -->
-<!--                    <RadioButton-->
-<!--                        android:id="@+id/radio_white"-->
-<!--                        android:layout_width="50dp"-->
-<!--                        android:layout_height="50dp"-->
-<!--                        android:layout_marginRight="5dp"-->
-<!--                        android:onClick="selectedColor"-->
-<!--                        android:buttonTint="@color/white"-->
-<!--                        android:padding="10dp"-->
-<!--                        android:checked="false"/>-->
-<!--    -->
-<!--                    <RadioButton-->
-<!--                        android:id="@+id/radio_black"-->
-<!--                        android:layout_width="50dp"-->
-<!--                        android:layout_height="50dp"-->
-<!--                        android:layout_marginRight="5dp"-->
-<!--                        android:onClick="selectedColor"-->
-<!--                        android:buttonTint="@color/black"-->
-<!--                        android:padding="10dp"-->
-<!--                        android:checked="false"/>-->
-<!--    -->
-<!--                    <RadioButton-->
-<!--                        android:id="@+id/radio_gray"-->
-<!--                        android:layout_width="50dp"-->
-<!--                        android:layout_height="50dp"-->
-<!--                        android:layout_marginRight="5dp"-->
-<!--                        android:onClick="selectedColor"-->
-<!--                        android:buttonTint="@color/gray"-->
-<!--                        android:padding="10dp"-->
-<!--                        android:checked="false"/>-->
-<!--    -->
-<!--                    <RadioButton-->
-<!--                        android:id="@+id/radio_biege"-->
-<!--                        android:layout_width="50dp"-->
-<!--                        android:layout_height="50dp"-->
-<!--                        android:onClick="selectedColor"-->
-<!--                        android:buttonTint="@color/beige"-->
-<!--                        android:padding="10dp"-->
-<!--                        android:checked="false"/>-->
+                <!--                    <RadioButton-->
+                <!--                        android:id="@+id/radio_purple"-->
+                <!--                        android:layout_width="50dp"-->
+                <!--                        android:layout_height="50dp"-->
+                <!--                        android:layout_marginRight="5dp"-->
+                <!--                        android:onClick="selectedColor"-->
+                <!--                        android:buttonTint="@color/purple"-->
+                <!--                        android:padding="10dp"-->
+                <!--                        android:checked="false"/>-->
+                <!--    -->
+                <!--                    <RadioButton-->
+                <!--                        android:id="@+id/radio_white"-->
+                <!--                        android:layout_width="50dp"-->
+                <!--                        android:layout_height="50dp"-->
+                <!--                        android:layout_marginRight="5dp"-->
+                <!--                        android:onClick="selectedColor"-->
+                <!--                        android:buttonTint="@color/white"-->
+                <!--                        android:padding="10dp"-->
+                <!--                        android:checked="false"/>-->
+                <!--    -->
+                <!--                    <RadioButton-->
+                <!--                        android:id="@+id/radio_black"-->
+                <!--                        android:layout_width="50dp"-->
+                <!--                        android:layout_height="50dp"-->
+                <!--                        android:layout_marginRight="5dp"-->
+                <!--                        android:onClick="selectedColor"-->
+                <!--                        android:buttonTint="@color/black"-->
+                <!--                        android:padding="10dp"-->
+                <!--                        android:checked="false"/>-->
+                <!--    -->
+                <!--                    <RadioButton-->
+                <!--                        android:id="@+id/radio_gray"-->
+                <!--                        android:layout_width="50dp"-->
+                <!--                        android:layout_height="50dp"-->
+                <!--                        android:layout_marginRight="5dp"-->
+                <!--                        android:onClick="selectedColor"-->
+                <!--                        android:buttonTint="@color/gray"-->
+                <!--                        android:padding="10dp"-->
+                <!--                        android:checked="false"/>-->
+                <!--    -->
+                <!--                    <RadioButton-->
+                <!--                        android:id="@+id/radio_biege"-->
+                <!--                        android:layout_width="50dp"-->
+                <!--                        android:layout_height="50dp"-->
+                <!--                        android:onClick="selectedColor"-->
+                <!--                        android:buttonTint="@color/beige"-->
+                <!--                        android:padding="10dp"-->
+                <!--                        android:checked="false"/>-->
 
             </RadioGroup>
 
         </LinearLayout>
 
+        <Button
+            android:id="@+id/select_date_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/custom_button"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:text="Select Date"
+            android:textAllCaps="false"
+            android:textSize="20sp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
 
-<!--            <Button-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_weight="1"-->
-<!--                android:background="@drawable/custom_button"-->
-<!--                android:text="Add Color"-->
-<!--                android:textAllCaps="false"-->
-<!--                android:textSize="20sp"-->
-<!--                android:layout_marginRight="10dp"-->
-<!--                android:fontFamily="sans-serif-condensed-medium"/>-->
+            <!--            <Button-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_weight="1"-->
+            <!--                android:background="@drawable/custom_button"-->
+            <!--                android:text="Add Color"-->
+            <!--                android:textAllCaps="false"-->
+            <!--                android:textSize="20sp"-->
+            <!--                android:layout_marginRight="10dp"-->
+            <!--                android:fontFamily="sans-serif-condensed-medium"/>-->
+
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/custom_button"
+                android:fontFamily="sans-serif-condensed-medium"
                 android:text="Add Image"
                 android:textAllCaps="false"
-                android:textSize="20sp"
-                android:fontFamily="sans-serif-condensed-medium"/>
+                android:textSize="20sp" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="30dp">
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/cancel_btn"
@@ -285,13 +297,13 @@
                 android:id="@+id/ok_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/custom_button"
+                android:fontFamily="sans-serif-condensed-medium"
                 android:text="Ok"
                 android:textAllCaps="false"
-                android:textSize="20sp"
-                android:layout_marginLeft="10dp"
-                android:fontFamily="sans-serif-condensed-medium"/>
+                android:textSize="20sp" />
 
         </LinearLayout>
 

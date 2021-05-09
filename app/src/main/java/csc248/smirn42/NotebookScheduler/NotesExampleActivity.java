@@ -1,21 +1,19 @@
 package csc248.smirn42.NotebookScheduler;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.Calendar;
 
 
-public class notes_example extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class NotesExampleActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     EditText notebookName, noteText, dateText;
     CheckBox dueDate;
@@ -40,7 +38,7 @@ public class notes_example extends AppCompatActivity implements DatePickerDialog
         notebookName.setText(str);
 
         // create a database helper
-        DataBaseHelper dataBaseHelper = new DataBaseHelper(notes_example.this);
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(this);
 
         // get notebook Id from notebook Name
         Notebook noteBook = dataBaseHelper.getNotebooks(str).get(0);
@@ -56,7 +54,7 @@ public class notes_example extends AppCompatActivity implements DatePickerDialog
         noteText.setText(NoteText);
         dateText.setText(NoteDue);
 
-        if (! NoteDue.isEmpty()) {
+        if (!NoteDue.isEmpty()) {
             dueDate.setChecked(true);
         }
 
@@ -100,10 +98,10 @@ public class notes_example extends AppCompatActivity implements DatePickerDialog
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         savedDay = dayOfMonth;
-        savedMonth  = month + 1;
+        savedMonth = month + 1;
         savedYear = year;
 
-        String date = savedMonth + "/" +  savedDay + "/" + savedYear;
+        String date = savedMonth + "/" + savedDay + "/" + savedYear;
         dateText.setText(date);
 
     }
@@ -125,7 +123,7 @@ public class notes_example extends AppCompatActivity implements DatePickerDialog
 
 
         // initialize database helper
-        DataBaseHelper dataBaseHelper = new DataBaseHelper(notes_example.this);
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(this);
 
         // get notebook Id from notebook Name
         Notebook noteBook = dataBaseHelper.getNotebooks(notebookName.getText().toString()).get(0);

@@ -8,7 +8,6 @@ public class Notebook {
     private boolean isList;
 
 
-
     public Notebook(int notebookId, String notebookName, int notebookColor, String pictureLocation, boolean isList) {
         this.notebookId = notebookId;
         this.notebookName = notebookName;

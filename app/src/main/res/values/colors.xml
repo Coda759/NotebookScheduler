@@ -4,6 +4,7 @@
     <color name="secondary_color">#007EE6</color>
     <color name="accent_color">#004EC3</color>
     <color name="button_color">#0093E3</color>
+    <color name="transparent">#00000000</color>
 
     <!--Radio Buttons Notebook Color Selection-->
     <color name="blue">#130fe1</color>
