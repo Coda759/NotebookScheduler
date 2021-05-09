@@ -16,18 +16,5 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.notebook_home_page);
 
-        Button goToAddNotebookPage = findViewById(R.id.addNotebookBtn);
-        goToAddNotebookPage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addNotebook();
-            }
-        });
-
-    }
-
-    public void addNotebook() {
-        Intent intent = new Intent(this, AddNotebook.class);
-        startActivity(intent);
     }
 }
