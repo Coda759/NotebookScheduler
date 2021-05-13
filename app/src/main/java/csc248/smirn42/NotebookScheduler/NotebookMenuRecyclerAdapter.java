@@ -1,10 +1,13 @@
 package csc248.smirn42.NotebookScheduler;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,15 +53,57 @@ public class NotebookMenuRecyclerAdapter extends RecyclerView.Adapter<NotebookMe
     public void onBindViewHolder(@NonNull NotebookMenuRecyclerAdapter.CustomViewHolder holder, int position) {
         holder.notebookBtn.setText(thumbnailList.get(position).getNotebookName());
         holder.notebookBtn.setBackgroundResource(thumbnailList.get(position).getNotebookColor());
-        holder.notebookBtn.setOnClickListener(new View.OnClickListener() {
+
+        //Handler for notebook deletion
+        holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), NotesExampleActivity.class);
-                intent.putExtra("notebookName", thumbnailList.get(position).getNotebookName());
-                view.getContext().startActivity(intent);
-                //pass information to NotesExampleActivity here
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setCancelable(false);
+                builder.setTitle("Delete " + thumbnailList.get(position).getNotebookName() + "?");
+
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+
+                builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        notebookDB = new DataBaseHelper(context);
+                        notebookDB.deleteNotebook(thumbnailList.get(position).getNotebookName());
+                        thumbnailList.remove(position);
+                        notifyDataSetChanged();
+                        notifyItemRemoved(position);
+                    }
+                });
+                builder.show();
             }
         });
+        //Decide what type of notebook
+        if(thumbnailList.get(position).isList()) {
+            holder.notebookBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(view.getContext(), NoteList.class);
+                    intent.putExtra("notebookName", thumbnailList.get(position).getNotebookName());
+                    view.getContext().startActivity(intent);
+                    System.out.println(thumbnailList.get(position).isList());
+                }
+            });
+        } else {
+            holder.notebookBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(view.getContext(), notes_example.class);
+                    intent.putExtra("notebookName", thumbnailList.get(position).getNotebookName());
+                    view.getContext().startActivity(intent);
+                    System.out.println(thumbnailList.get(position).isList());
+                }
+            });
+        }
         //set pic here maybe
         //set description here maybe
         //set due date here maybe
@@ -102,12 +147,12 @@ public class NotebookMenuRecyclerAdapter extends RecyclerView.Adapter<NotebookMe
 //    };
 
     public class CustomViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        Button notebookBtn;
+        Button notebookBtn, deleteBtn;
 
         public CustomViewHolder(View view) {
             super(view);
             notebookBtn = view.findViewById(R.id.notebook_thumbnail_btn);
-
+            deleteBtn = view.findViewById(R.id.delte_btn);
         }
 
         @Override
