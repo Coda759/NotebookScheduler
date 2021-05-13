@@ -116,11 +116,13 @@ public class NotebookCreate extends AppCompatActivity {
                 notebookNameInput.getText().clear();
             }
         }
-        Note note = new Note(-1,
-                dbhelper.notebookNameToNotebookId(notebookName),
-                "",
-                "",
-                false);
-        boolean successN = dbhelper.addNote(note);
+        if (!noteIsList) {
+            Note note = new Note(-1,
+                    dbhelper.notebookNameToNotebookId(notebookName),
+                    "",
+                    "",
+                    false);
+            boolean successN = dbhelper.addNote(note);
+        }
     }
 }
