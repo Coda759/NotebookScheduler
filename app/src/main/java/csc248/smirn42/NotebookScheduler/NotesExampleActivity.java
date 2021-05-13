@@ -1,22 +1,19 @@
 package csc248.smirn42.NotebookScheduler;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Editable;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.Calendar;
 
 
-public class notes_example extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class NotesExampleActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     EditText notebookName, noteText, dateText;
     CheckBox dueDate;
@@ -34,14 +31,14 @@ public class notes_example extends AppCompatActivity implements DatePickerDialog
         dateText = findViewById(R.id.dateText);
         dueDate = findViewById(R.id.dueDate);
 
-        //*************Provide a string for notebook name******************************
+
         // get notebook name from another activity
         Intent intent = getIntent();
         String str = intent.getStringExtra("notebookName");
         notebookName.setText(str);
 
         // create a database helper
-        DataBaseHelper dataBaseHelper = new DataBaseHelper(notes_example.this);
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(this);
 
         // get notebook Id from notebook Name
         Notebook noteBook = dataBaseHelper.getNotebooks(str).get(0);
@@ -52,72 +49,22 @@ public class notes_example extends AppCompatActivity implements DatePickerDialog
         String NoteText = note.getNoteText();
         String NoteDue = note.getDueDate();
 
-        // change the color of the notes according to notebook
-        int color = noteBook.getNotebookColor();
-        System.out.println(color);
-
-        switch (color) {
-            // light green
-            case 2131034211:
-                notebookName.setBackgroundColor(Color.parseColor("#5fd94c"));
-                noteText.setBackgroundColor(Color.parseColor("#baf0af"));
-                dateText.setBackgroundColor(Color.parseColor("#cdf2c7"));
-                dueDate.setBackgroundColor(Color.parseColor("#cdf2c7"));
-                break;
-
-            // yellow
-            case 2131034338:
-                notebookName.setBackgroundColor(Color.parseColor("#ede737"));
-                noteText.setBackgroundColor(Color.parseColor("#e8f29d"));
-                dateText.setBackgroundColor(Color.parseColor("#faf8c3"));
-                dueDate.setBackgroundColor(Color.parseColor("#faf8c3"));
-                break;
-
-            // red
-            case 2131034317:
-                notebookName.setBackgroundColor(Color.parseColor("#ed4c61"));
-                noteText.setBackgroundColor(Color.parseColor("#fcb3bc"));
-                dateText.setBackgroundColor(Color.parseColor("#fadce0"));
-                dueDate.setBackgroundColor(Color.parseColor("#fadce0"));
-                break;
-
-            // pink
-            case 2131034214:
-                notebookName.setBackgroundColor(Color.parseColor("#f576d7"));
-                noteText.setBackgroundColor(Color.parseColor("#facdec"));
-                dateText.setBackgroundColor(Color.parseColor("#f5e4ef"));
-                dueDate.setBackgroundColor(Color.parseColor("#f5e4ef"));
-                break;
-
-            // orange
-            case 2131034302:
-                notebookName.setBackgroundColor(Color.parseColor("#f57547"));
-                noteText.setBackgroundColor(Color.parseColor("#f2c1b6"));
-                dateText.setBackgroundColor(Color.parseColor("#fad2c5"));
-                dueDate.setBackgroundColor(Color.parseColor("#fad2c5"));
-                break;
-
-            // cyan
-            case 2131034162:
-                notebookName.setBackgroundColor(Color.parseColor("#5ef7f2"));
-                noteText.setBackgroundColor(Color.parseColor("#d3f5f4"));
-                dateText.setBackgroundColor(Color.parseColor("#dff2f2"));
-                dueDate.setBackgroundColor(Color.parseColor("#dff2f2"));
-                break;
-        }
-
-
 
         // set the notebook text and date from the database
         noteText.setText(NoteText);
         dateText.setText(NoteDue);
 
-        if (! NoteDue.isEmpty()) {
+        if (!NoteDue.isEmpty()) {
             dueDate.setChecked(true);
         }
 
     }
 
+//    // go to calendar ( I don't think we need this)
+//    public void goToCalendar(View view) {
+//        Intent intent = new Intent(this, AddNotebook.class);
+//        startActivity(intent);
+//    }
 
     // get today's date
     public void getDate() {
@@ -151,10 +98,10 @@ public class notes_example extends AppCompatActivity implements DatePickerDialog
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         savedDay = dayOfMonth;
-        savedMonth  = month + 1;
+        savedMonth = month + 1;
         savedYear = year;
 
-        String date = savedMonth + "/" +  savedDay + "/" + savedYear;
+        String date = savedMonth + "/" + savedDay + "/" + savedYear;
         dateText.setText(date);
 
     }
@@ -176,7 +123,7 @@ public class notes_example extends AppCompatActivity implements DatePickerDialog
 
 
         // initialize database helper
-        DataBaseHelper dataBaseHelper = new DataBaseHelper(notes_example.this);
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(this);
 
         // get notebook Id from notebook Name
         Notebook noteBook = dataBaseHelper.getNotebooks(notebookName.getText().toString()).get(0);
@@ -208,3 +155,4 @@ public class notes_example extends AppCompatActivity implements DatePickerDialog
         save_notes();
         super.onBackPressed();
     }
+}

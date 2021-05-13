@@ -32,7 +32,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         super(context, "notebook.db", null, 1);
     }
 
-
     @Override
     public void onCreate(SQLiteDatabase db) {
 
@@ -66,11 +65,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     public boolean addNotebook(Notebook notebook) {
 
-        if (notebook.getNotebookName().equals(null) || notebook.getNotebookName().equals("")){
+        if (notebook.getNotebookName().equals(null) || notebook.getNotebookName().equals("")) {
             return false;
         }
 
-        if (checkDuplicateNotebookName(notebook.getNotebookName())){
+        if (checkDuplicateNotebookName(notebook.getNotebookName())) {
 
             return false;
         }
@@ -137,8 +136,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 boolean isList = cursor.getInt(4) == 1 ? true : false;
 
                 Notebook notebook = new Notebook(notebookId, notebookName, notebookColor, pictureLocation, isList);
-                if(notebook.getNotebookName().equals(bookName)){
-                    returnList.add(notebook);}
+                if (notebook.getNotebookName().equals(bookName)) {
+                    returnList.add(notebook);
+                }
 
             } while (cursor.moveToNext());
         } else {
@@ -149,7 +149,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return returnList;
     }
 
-    public boolean deleteNotebook(Notebook notebook){
+    public boolean deleteNotebook(Notebook notebook) {
         deleteNotesByNotebook(notebook.getNotebookId());
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -158,11 +158,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(queryString, null);
 
-        if (cursor.moveToFirst()){
+        if (cursor.moveToFirst()) {
             cursor.close();
             db.close();
             return true;
-        }else{
+        } else {
             cursor.close();
             db.close();
             return false;
@@ -191,7 +191,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     public boolean addNote(Note note) {
 
-        if(note.getBookId() == -1){
+        if (note.getBookId() == -1) {
             return false;
         }
 
@@ -237,7 +237,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return returnList;
     }
 
-    public  List<Note> getNotes(String dueDate) {
+    public List<Note> getNotes(String dueDate) {
         List<Note> returnList = new ArrayList<>();
         String queryString = "SELECT * FROM " + NOTE_TABLE;
 
@@ -254,8 +254,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 boolean isCompleted = cursor.getInt(4) == 1 ? true : false;
 
                 Note note = new Note(noteId, bookId, noteText, dueDate, isCompleted);
-                if (date.equals(dueDate)){
-                    returnList.add(note);}
+                if (date.equals(dueDate)) {
+                    returnList.add(note);
+                }
 
             } while (cursor.moveToNext());
         } else {
@@ -283,8 +284,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 boolean isCompleted = cursor.getInt(4) == 1 ? true : false;
 
                 Note note = new Note(noteId, bookId, noteText, dueDate, isCompleted);
-                if (note.getBookId() == notebookId){
-                    returnList.add(note);}
+                if (note.getBookId() == notebookId) {
+                    returnList.add(note);
+                }
 
             } while (cursor.moveToNext());
         } else {
@@ -295,17 +297,17 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return returnList;
     }
 
-    public boolean deleteNote(Note note){
+    public boolean deleteNote(Note note) {
         SQLiteDatabase db = this.getWritableDatabase();
         String queryString = "DELETE FROM " + NOTE_TABLE + " WHERE NOTE_ID  = " + note.getNoteId();
 
         Cursor cursor = db.rawQuery(queryString, null);
 
-        if (cursor.moveToFirst()){
+        if (cursor.moveToFirst()) {
             cursor.close();
             db.close();
             return true;
-        }else{
+        } else {
             cursor.close();
             db.close();
             return false;
@@ -313,7 +315,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean updateNoteIsCompleted(Note note, boolean isCompleted){
+    public boolean updateNoteIsCompleted(Note note, boolean isCompleted) {
         int noteId = note.getNoteId();
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -323,18 +325,18 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    private boolean deleteNotesByNotebook(int bookId){
+    private boolean deleteNotesByNotebook(int bookId) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         String queryString = "DELETE FROM " + NOTE_TABLE + " WHERE " + COLUMN_BOOK_ID + " = " + bookId;
 
         Cursor cursor = db.rawQuery(queryString, null);
 
-        if (cursor.moveToFirst()){
+        if (cursor.moveToFirst()) {
             cursor.close();
             db.close();
             return true;
-        }else{
+        } else {
             cursor.close();
             db.close();
             return false;
@@ -342,7 +344,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean editNoteText(Note note, String editedText){
+    public boolean editNoteText(Note note, String editedText) {
         int noteId = note.getNoteId();
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -352,7 +354,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public boolean editNoteDate(Note note, String editedDate){
+    public boolean editNoteDate(Note note, String editedDate) {
         int noteId = note.getNoteId();
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -361,7 +363,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.close();
         return true;
     }
-
 
 
     public int notebookNameToNotebookId(String notebookName) {
