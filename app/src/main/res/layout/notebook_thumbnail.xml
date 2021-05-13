@@ -4,18 +4,34 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:gravity="center"
-    android:background="@drawable/notebook_thumbnail_body"
     android:layout_margin="20dp">
 
     <Button
-        android:id="@+id/notebook_thumbnail_btn"
+        android:id="@+id/delte_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="delete"
+        android:onClick="deleteNotebook"/>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Notebook Title"
+        android:orientation="vertical"
         android:gravity="center"
-        android:textAllCaps="false"
-        android:fontFamily="sans-serif-medium"
-        android:textSize="24sp"/>
+        android:background="@drawable/notebook_thumbnail_body">
+
+        <Button
+            android:id="@+id/notebook_thumbnail_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Notebook Title"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="24sp"/>
+
+    </LinearLayout>
 
 </LinearLayout>
+

@@ -170,6 +170,23 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public boolean deleteNotebook(String notebookName){
+        Notebook notebook = getNotebooks(notebookName).get(0);
+        deleteNotesByNotebook(notebook.getNotebookId());
+        SQLiteDatabase db = this.getWritableDatabase();
+        String queryString = "DELETE FROM " + NOTEBOOK_TABLE + " WHERE " + COLUMN_NOTEBOOK_ID + " = " + notebook.getNotebookId();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()){
+            cursor.close();
+            db.close();
+            return true;
+        }else{
+            cursor.close();
+            db.close();
+            return false;
+        }
+    }
+
     //NOTES***************************************************************
 
     public boolean addNote(Note note) {

@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">NotebookScheduler</string>
     <string name="notebook_color"></string>
+
+
+
+    <!-- checklist page strings setting -->
+    <string name="save">Save</string>
+    <string name="new_task">New Task</string>
+    <string name="tasks">Tasks</string>
+    <!-- checklist page strings setting end here-->
+
 </resources>

@@ -208,5 +208,3 @@ public class notes_example extends AppCompatActivity implements DatePickerDialog
         save_notes();
         super.onBackPressed();
     }
-
-}

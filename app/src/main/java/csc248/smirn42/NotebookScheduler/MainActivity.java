@@ -30,4 +30,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AddNotebook.class);
         startActivity(intent);
     }
+
+    public void deleteNotebooks(View view) {
+
+    }
 }

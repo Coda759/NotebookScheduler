@@ -22,7 +22,6 @@ public class OpeningPage extends AppCompatActivity {
 
     public void gotoCalendarActivity(View view) {
         Intent intent = new Intent (this, CalendarActivity.class);
-
         startActivity(intent);
     }
 
